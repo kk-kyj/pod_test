@@ -6,13 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class TextReadApplication {
-	@Autowired
-	private static DBDao dbDao;
-
 	public static void main(String[] args) {
 		SpringApplication.run(TextReadApplication.class, args);
-		
-		dbDao.createSchema();
-		dbDao.createTable();
 	}
 }

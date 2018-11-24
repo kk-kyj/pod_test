@@ -26,7 +26,7 @@ public class TextRestController {
 	}
 	
 	@RequestMapping(value="/read/txt", method=RequestMethod.GET)
-	public String writeTextToFile(@RequestParam(value="id") String id, @RequestParam(value="msg") String msg) {
+	public String readTextFromFile(@RequestParam(value="id") String id) {
 		File file = new File("/kube/txt/log.txt");
 		
 		try {
@@ -53,9 +53,8 @@ public class TextRestController {
 	}
 	
 	@RequestMapping(value="/read/db", method=RequestMethod.GET)
-	public String writeTextToDB(@RequestParam(value="id") String id) {
-		dbDao.readContent(id);
-		return "";
+	public String readTextFromDB(@RequestParam(value="id") String id) {
+		return dbDao.readContent(id);
 	}
 	
 	private String runCmd(String[] cmdArr) {

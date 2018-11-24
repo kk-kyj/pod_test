@@ -14,10 +14,10 @@ public class DBDao {
     }
     
     public void createSchema() {
-    	template.update("CREATE DATABASE IF NOT EXISTS text");
+    	template.update("CREATE DATABASE IF NOT EXISTS text;");
     }
     
     public void createTable() {
-    	template.update("CREATE TABLE IF NOT EXISTS data(id varchar(32) not null, msg varchar(128) not null, primary key (id))");
+    	template.update("CREATE TABLE IF NOT EXISTS data(id varchar(32) not null, msg varchar(128) not null, primary key (id));");
     }
 }

@@ -12,9 +12,17 @@ public class DBDao {
 	@Autowired
     private JdbcTemplate template;
  
-    public void readContent(String id) {
-        List<Map<String, Object>> list = template.queryForList("SELECT * FROM text.data WHERE id='" + id + "'");
-        list.forEach(System.out::println);
+    public String readContent(String id) {
+        List<Map<String, Object>> list = template.queryForList("SELECT * FROM text.data WHERE id=" + id + "");
+        StringBuilder builder = new StringBuilder();
+        for(Map<String, Object> tmp : list) {
+        	for(String key : tmp.keySet()) {
+        		builder.append(key + "::" + tmp.get(key));
+        		builder.append(",");
+        	}
+        	builder.append("\n");
+        }
+        return builder.toString();
     }
     
     public void createSchema() {
