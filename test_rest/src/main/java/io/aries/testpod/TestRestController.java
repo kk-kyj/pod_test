@@ -15,14 +15,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TextRestController {
+public class TestRestController {
 	@Autowired
 	private DBDao dbDao;
 	
 	private String hostName;
 	
-	public TextRestController() {
+	public TestRestController() {
 		hostName = runCmd(new String("hostname").split(" "));
+	}
+	
+	@RequestMapping(value="/write/txt", method=RequestMethod.POST)
+	public String writeTextToFile(@RequestParam(value="id") String id, @RequestParam(value="msg") String msg) {
+		File file = new File("/kube/txt/log.txt");
+		
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			
+			bw.write(id + "::" + hostName + "," + msg + "\n");
+			bw.close();
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    }
+		
+		return "OK";
+	}
+	
+	@RequestMapping(value="/write/db", method=RequestMethod.POST)
+	public String writeTextToDB(@RequestParam(value="id") String id, @RequestParam(value="msg") String msg) {
+		dbDao.insertNewContent(id, hostName + "," + msg);
+		
+		return "OK";
 	}
 	
 	@RequestMapping(value="/read/txt", method=RequestMethod.GET)
