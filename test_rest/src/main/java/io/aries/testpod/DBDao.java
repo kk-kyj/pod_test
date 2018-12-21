@@ -34,6 +34,6 @@ public class DBDao {
     }
     
     public void createTable() {
-    	template.update("CREATE TABLE IF NOT EXISTS data(id varchar(32) not null, msg varchar(128) not null, primary key (id));");
+    	template.update("CREATE TABLE IF NOT EXISTS text.data(id varchar(32) not null, msg varchar(128) not null, primary key (id));");
     }
 }
