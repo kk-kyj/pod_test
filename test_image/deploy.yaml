@@ -24,10 +24,17 @@ spec:
                     value: "password"
         - name: test-rest
           image: test-rest:0.0.1
+          volumeMounts:
+                  - mountPath: /kube/txt
+                    name: txt-volume
           imagePullPolicy: Never
           ports:
                   - containerPort: 8082
-
+      volumes:
+              - name: txt-volume
+                hostPath:
+                  path: /home/jun/docker/example_pod/pod_test/test_image/kube/txt
+                  type: Directory
                     #        - name: text-write
                     #          image: juneda/text-write:0.0.1
                     #        - name: text-read
