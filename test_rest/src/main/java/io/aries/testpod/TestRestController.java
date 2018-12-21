@@ -25,6 +25,19 @@ public class TestRestController {
 		hostName = runCmd(new String("hostname").split(" "));
 	}
 	
+	@RequestMapping(value="/db/init", method=RequestMethod.GET)
+	public String dbInit() {		
+		try {
+			dbDao.createSchema();
+			dbDao.createTable();
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	return e.getMessage();
+	    }
+		
+		return "OK";
+	}
+	
 	@RequestMapping(value="/write/txt", method=RequestMethod.POST)
 	public String writeTextToFile(@RequestParam(value="id") String id, @RequestParam(value="msg") String msg) {
 		File file = new File("/kube/txt/log.txt");
